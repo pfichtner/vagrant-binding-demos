@@ -60,24 +60,24 @@ public class DbHandlerTest {
 				.withPuppetProvisionerConfig(puppetConfig)
 				.build();
 		
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfigBuilder
+		VagrantEnvironmentConfig environmentConfig = Builder
 				.create()
 				.withVagrantVmConfig(vmConfig)
 				.build();
 		
-		VagrantFileTemplateConfiguration fileTemplateConfiguration1 = VagrantFileTemplateConfigurationBuilder
+		VagrantFileTemplateConfiguration fileTemplateConfiguration1 = Builder
 				.create()
 				.withUrlTemplate(VagrantUtils.getInstance().load("com/guigarage/vagrant/dbhandler/my.cnf"))
 				.withPathInVagrantFolder("files/my.cnf")
 				.build();
 		
-		VagrantFileTemplateConfiguration fileTemplateConfiguration2 = VagrantFileTemplateConfigurationBuilder
+		VagrantFileTemplateConfiguration fileTemplateConfiguration2 = Builder
 				.create()
 				.withUrlTemplate(VagrantUtils.getInstance().load("com/guigarage/vagrant/dbhandler/dbserver.pp"))
 				.withPathInVagrantFolder("puppet/manifests/dbserver.pp")
 				.build();
 		
-		VagrantConfiguration configuration = VagrantConfigurationBuilder
+		VagrantConfiguration configuration = Builder
 				.create()
 				.withVagrantEnvironmentConfig(environmentConfig)
 				.withVagrantFileTemplateConfiguration(fileTemplateConfiguration1)

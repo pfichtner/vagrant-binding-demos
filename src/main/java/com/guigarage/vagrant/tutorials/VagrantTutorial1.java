@@ -22,7 +22,7 @@ public class VagrantTutorial1 {
 	public static void main(String[] args) throws IOException {
 		VagrantVmConfig vmConfig = VagrantVmConfigBuilder.create().withName("demoVm")
 				.withLucid32Box().build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfigBuilder
+		VagrantEnvironmentConfig environmentConfig = Builder
 				.create().withVagrantVmConfig(vmConfig).build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true).createEnvironment(
 				new File(FileUtils.getTempDirectory(),"myVagrantPath" + System.currentTimeMillis()), environmentConfig);

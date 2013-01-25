@@ -26,10 +26,10 @@ public class VagrantTutorial2 {
 				.withBoxUrl(VagrantUtils.getInstance().getLucid64Url())
 				.withHostOnlyIp("192.168.50.4")
 				.withVagrantPortForwarding(
-						VagrantPortForwardingBuilder.create()
+						Builder.create()
 								.withGuestPort(7411).withHostPort(8080).build())
 				.build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfigBuilder
+		VagrantEnvironmentConfig environmentConfig = Builder
 				.create().withVagrantVmConfig(vmConfig1).withVagrantVmConfig(vmConfig2).build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true).createEnvironment(
 				new File(FileUtils.getTempDirectory(),"myVagrantPath" + System.currentTimeMillis()), environmentConfig);

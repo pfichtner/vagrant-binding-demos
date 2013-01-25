@@ -24,9 +24,9 @@ public class PuppetTutorial1 {
 		PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfigBuilder.create().withDebug(true).withManifestFile("myPuppetManifest.pp").withManifestPath("manifests").build();
 		VagrantVmConfig vmConfig = VagrantVmConfigBuilder.create().withName("demoVm")
 				.withLucid32Box().withPuppetProvisionerConfig(puppetConfig).build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfigBuilder
+		VagrantEnvironmentConfig environmentConfig = Builder
 				.create().withVagrantVmConfig(vmConfig).build();
-		VagrantFileTemplateConfiguration fileConfig = VagrantFileTemplateConfigurationBuilder.create().withUrlTemplate(VagrantUtils.getInstance().load("/com/guigarage/vagrant/tutorials/myPuppetManifest.pp")).withPathInVagrantFolder("manifests/myPuppetManifest.pp").build();
+		VagrantFileTemplateConfiguration fileConfig = Builder.create().withUrlTemplate(VagrantUtils.getInstance().load("/com/guigarage/vagrant/tutorials/myPuppetManifest.pp")).withPathInVagrantFolder("manifests/myPuppetManifest.pp").build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true).createEnvironment(
 				new File(FileUtils.getTempDirectory(),"myVagrantPath" + System.currentTimeMillis()), environmentConfig, Collections.singleton(fileConfig));
 		vagrantEnvironmet.up();
