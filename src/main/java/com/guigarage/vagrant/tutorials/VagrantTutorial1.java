@@ -30,4 +30,5 @@ public class VagrantTutorial1 {
 		vagrantEnvironmet.up();
 		vagrantEnvironmet.destroy();
 	}
+
 }

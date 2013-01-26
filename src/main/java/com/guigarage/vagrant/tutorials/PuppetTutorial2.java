@@ -10,8 +10,8 @@ import com.guigarage.puppet.forge.PuppetForgeClient;
 import com.guigarage.vagrant.Vagrant;
 import com.guigarage.vagrant.configuration.PuppetProvisionerConfig;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
-import com.guigarage.vagrant.configuration.VagrantFileTemplateConfiguration;
-import com.guigarage.vagrant.configuration.VagrantFolderTemplateConfiguration;
+import com.guigarage.vagrant.configuration.VagrantFileTemplateConfigurationURL;
+import com.guigarage.vagrant.configuration.VagrantFolderTemplateConfigurationFile;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
 import com.guigarage.vagrant.model.VagrantEnvironment;
 import com.guigarage.vagrant.util.VagrantUtils;
@@ -31,10 +31,10 @@ public class PuppetTutorial2 {
 		PuppetForgeClient forgeClient = new PuppetForgeClient();
 		forgeClient.installToModulesDir(tempFolder,
 				forgeClient.findModule("puppetlabs", "mongodb"));
-		VagrantFolderTemplateConfiguration folderConfig = Builder.create()
+		VagrantFolderTemplateConfigurationFile folderConfig = Builder.create()
 				.withLocalFolder(tempFolder)
 				.withPathInVagrantFolder("puppet/modules").build();
-		VagrantFileTemplateConfiguration fileConfig = VagrantFileTemplateConfiguration.Builder
+		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL.Builder
 				.create()
 				.withUrlTemplate(
 						VagrantUtils

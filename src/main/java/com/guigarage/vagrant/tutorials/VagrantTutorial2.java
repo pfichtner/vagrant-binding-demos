@@ -45,8 +45,7 @@ public class VagrantTutorial2 {
 				System.out.println("VM " + vm.getName() + " is not running");
 			}
 		}
-		for (VagrantVm vm : vagrantEnvironmet.getAllVms()) {
-			vm.destroy();
-		}
+		vagrantEnvironmet.destroy();
 	}
+
 }

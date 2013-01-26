@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 import com.guigarage.vagrant.Vagrant;
 import com.guigarage.vagrant.configuration.PuppetProvisionerConfig;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
-import com.guigarage.vagrant.configuration.VagrantFileTemplateConfiguration;
+import com.guigarage.vagrant.configuration.VagrantFileTemplateConfigurationURL;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
 import com.guigarage.vagrant.model.VagrantEnvironment;
 import com.guigarage.vagrant.util.VagrantUtils;
@@ -26,7 +26,7 @@ public class PuppetTutorial1 {
 				.withPuppetProvisionerConfig(puppetConfig).build();
 		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
 				.create().withVagrantVmConfig(vmConfig).build();
-		VagrantFileTemplateConfiguration fileConfig = VagrantFileTemplateConfiguration.Builder
+		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL.Builder
 				.create()
 				.withUrlTemplate(
 						VagrantUtils

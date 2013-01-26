@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.guigarage.vagrant.configuration.PuppetProvisionerConfig;
 import com.guigarage.vagrant.configuration.VagrantConfiguration;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
-import com.guigarage.vagrant.configuration.VagrantFileTemplateConfiguration;
+import com.guigarage.vagrant.configuration.VagrantFileTemplateConfigurationURL;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
 import com.guigarage.vagrant.junit.VagrantTestRule;
 import com.guigarage.vagrant.util.VagrantUtils;
@@ -54,14 +54,14 @@ public class DbHandlerTest {
 			VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
 					.create().withVagrantVmConfig(vmConfig).build();
 
-			VagrantFileTemplateConfiguration fileTemplateConfiguration1 = VagrantFileTemplateConfiguration.Builder
+			VagrantFileTemplateConfigurationURL fileTemplateConfiguration1 = VagrantFileTemplateConfigurationURL.Builder
 					.create()
 					.withUrlTemplate(
 							VagrantUtils.getInstance().load(
 									"com/guigarage/vagrant/dbhandler/my.cnf"))
 					.withPathInVagrantFolder("files/my.cnf").build();
 
-			VagrantFileTemplateConfiguration fileTemplateConfiguration2 = VagrantFileTemplateConfiguration.Builder
+			VagrantFileTemplateConfigurationURL fileTemplateConfiguration2 = VagrantFileTemplateConfigurationURL.Builder
 					.create()
 					.withUrlTemplate(
 							VagrantUtils
