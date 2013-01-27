@@ -2,6 +2,8 @@ package com.guigarage.vagrant.dbhandler;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.SQLException;
+
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -14,11 +16,10 @@ import com.guigarage.vagrant.junit.VagrantTestRule;
 import com.guigarage.vagrant.util.VagrantUtils;
 
 /**
- * @author hendrikebbers
+ * UnitTests that uses the {@link com.guigarage.vagrant.junit.VagrantTestRule}.
+ * The test is wrapped in the lifecycle of a vm created by Vagrant-Binding.
  * 
- *         UnitTests that uses the
- *         {@link com.guigarage.vagrant.junit.VagrantTestRule}. The test is
- *         wrapped in the lifecycle of a vm created by Vagrant-Binding.
+ * @author hendrikebbers
  */
 public class DbHandlerTest {
 
@@ -43,26 +44,26 @@ public class DbHandlerTest {
 	 */
 	public static VagrantConfiguration createConfig() {
 		try {
-			PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig.Builder
-					.create().withManifestPath("puppet/manifests")
+			PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig
+					.builder().withManifestPath("puppet/manifests")
 					.withManifestFile("dbserver.pp").withDebug(true).build();
 
-			VagrantVmConfig vmConfig = VagrantVmConfig.Builder.create()
+			VagrantVmConfig vmConfig = VagrantVmConfig.builder()
 					.withName("mysqlvm").withHostOnlyIp(VM_IP).withLucid32Box()
 					.withPuppetProvisionerConfig(puppetConfig).build();
 
-			VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
-					.create().withVagrantVmConfig(vmConfig).build();
+			VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
+					.builder().withVagrantVmConfig(vmConfig).build();
 
-			VagrantFileTemplateConfigurationURL fileTemplateConfiguration1 = VagrantFileTemplateConfigurationURL.Builder
-					.create()
+			VagrantFileTemplateConfigurationURL fileTemplateConfiguration1 = VagrantFileTemplateConfigurationURL
+					.builder()
 					.withUrlTemplate(
 							VagrantUtils.getInstance().load(
 									"com/guigarage/vagrant/dbhandler/my.cnf"))
 					.withPathInVagrantFolder("files/my.cnf").build();
 
-			VagrantFileTemplateConfigurationURL fileTemplateConfiguration2 = VagrantFileTemplateConfigurationURL.Builder
-					.create()
+			VagrantFileTemplateConfigurationURL fileTemplateConfiguration2 = VagrantFileTemplateConfigurationURL
+					.builder()
 					.withUrlTemplate(
 							VagrantUtils
 									.getInstance()
@@ -70,8 +71,8 @@ public class DbHandlerTest {
 					.withPathInVagrantFolder("puppet/manifests/dbserver.pp")
 					.build();
 
-			VagrantConfiguration configuration = VagrantConfiguration.Builder
-					.create()
+			VagrantConfiguration configuration = VagrantConfiguration
+					.builder()
 					.withVagrantEnvironmentConfig(environmentConfig)
 					.withVagrantFileTemplateConfiguration(
 							fileTemplateConfiguration1)
@@ -87,9 +88,12 @@ public class DbHandlerTest {
 	/**
 	 * Simple UnitTests that connects to the MySQL server on the vm and creates
 	 * some data
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	@Test
-	public void testJdbc() {
+	public void testJdbc() throws ClassNotFoundException, SQLException {
 		DbHandler dbHandler = new DbHandler(VM_IP, "testapp", "dbuser",
 				"dbuser");
 		dbHandler.connect();
