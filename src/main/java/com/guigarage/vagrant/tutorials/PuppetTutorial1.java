@@ -17,17 +17,17 @@ import com.guigarage.vagrant.util.VagrantUtils;
 public class PuppetTutorial1 {
 
 	public static void main(String[] args) throws IOException {
-		PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig.Builder
-				.create().withDebug(true)
+		PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig
+				.builder().withDebug(true)
 				.withManifestFile("myPuppetManifest.pp")
 				.withManifestPath("manifests").build();
-		VagrantVmConfig vmConfig = VagrantVmConfig.Builder.create()
-				.withName("demoVm").withLucid32Box()
-				.withPuppetProvisionerConfig(puppetConfig).build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
-				.create().withVagrantVmConfig(vmConfig).build();
-		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL.Builder
-				.create()
+		VagrantVmConfig vmConfig = VagrantVmConfig.builder().withName("demoVm")
+				.withLucid32Box().withPuppetProvisionerConfig(puppetConfig)
+				.build();
+		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
+				.builder().withVagrantVmConfig(vmConfig).build();
+		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL
+				.builder()
 				.withUrlTemplate(
 						VagrantUtils
 								.getInstance()

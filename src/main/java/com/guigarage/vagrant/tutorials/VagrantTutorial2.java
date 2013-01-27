@@ -16,20 +16,19 @@ import com.guigarage.vagrant.util.VagrantUtils;
 public class VagrantTutorial2 {
 
 	public static void main(String[] args) throws IOException {
-		VagrantVmConfig vmConfig1 = VagrantVmConfig.Builder.create()
+		VagrantVmConfig vmConfig1 = VagrantVmConfig.builder()
 				.withName("32BitVm").withLucid32Box().build();
-		VagrantVmConfig vmConfig2 = VagrantVmConfig.Builder
-				.create()
+		VagrantVmConfig vmConfig2 = VagrantVmConfig
+				.builder()
 				.withBoxName("lucid64")
 				.withName("64BitVm")
 				.withBoxUrl(VagrantUtils.getInstance().getLucid64Url())
 				.withHostOnlyIp("192.168.50.4")
 				.withVagrantPortForwarding(
-						VagrantPortForwarding.Builder.create()
-								.withGuestPort(7411).withHostPort(8080).build())
-				.build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
-				.create().withVagrantVmConfig(vmConfig1)
+						VagrantPortForwarding.builder().withGuestPort(7411)
+								.withHostPort(8080).build()).build();
+		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
+				.builder().withVagrantVmConfig(vmConfig1)
 				.withVagrantVmConfig(vmConfig2).build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
 				.createEnvironment(new File(FileUtils.getTempDirectory(),

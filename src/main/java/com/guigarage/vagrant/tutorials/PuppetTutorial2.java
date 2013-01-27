@@ -19,8 +19,8 @@ import com.guigarage.vagrant.util.VagrantUtils;
 public class PuppetTutorial2 {
 
 	public static void main(String[] args) throws IOException {
-		PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig.Builder
-				.create().withDebug(true)
+		PuppetProvisionerConfig puppetConfig = PuppetProvisionerConfig
+				.builder().withDebug(true)
 				.withManifestFile("myPuppetManifest.pp")
 				.withManifestPath("puppet/manifests")
 				.withModulesPath("puppet/modules").build();
@@ -31,11 +31,11 @@ public class PuppetTutorial2 {
 		PuppetForgeClient forgeClient = new PuppetForgeClient();
 		forgeClient.installToModulesDir(tempFolder,
 				forgeClient.findModule("puppetlabs", "mongodb"));
-		VagrantFolderTemplateConfigurationFile folderConfig = VagrantFolderTemplateConfigurationFile.Builder
-				.create().withLocalFolder(tempFolder)
+		VagrantFolderTemplateConfigurationFile folderConfig = VagrantFolderTemplateConfigurationFile
+				.builder().withLocalFolder(tempFolder)
 				.withPathInVagrantFolder("puppet/modules").build();
-		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL.Builder
-				.create()
+		VagrantFileTemplateConfigurationURL fileConfig = VagrantFileTemplateConfigurationURL
+				.builder()
 				.withUrlTemplate(
 						VagrantUtils
 								.getInstance()
@@ -43,11 +43,11 @@ public class PuppetTutorial2 {
 				.withPathInVagrantFolder("puppet/manifests/myPuppetManifest.pp")
 				.build();
 
-		VagrantVmConfig vmConfig = VagrantVmConfig.Builder.create()
-				.withName("demoVm").withLucid32Box()
-				.withPuppetProvisionerConfig(puppetConfig).build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
-				.create().withVagrantVmConfig(vmConfig).build();
+		VagrantVmConfig vmConfig = VagrantVmConfig.builder().withName("demoVm")
+				.withLucid32Box().withPuppetProvisionerConfig(puppetConfig)
+				.build();
+		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
+				.builder().withVagrantVmConfig(vmConfig).build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
 				.createEnvironment(new File(FileUtils.getTempDirectory(),
 						"myVagrantPath" + System.currentTimeMillis()),

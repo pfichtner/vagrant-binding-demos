@@ -19,10 +19,10 @@ import com.guigarage.vagrant.model.VagrantEnvironment;
 public class VagrantTutorial1 {
 
 	public static void main(String[] args) throws IOException {
-		VagrantVmConfig vmConfig = VagrantVmConfig.Builder.create()
-				.withName("demoVm").withLucid32Box().build();
-		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig.Builder
-				.create().withVagrantVmConfig(vmConfig).build();
+		VagrantVmConfig vmConfig = VagrantVmConfig.builder().withName("demoVm")
+				.withLucid32Box().build();
+		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
+				.builder().withVagrantVmConfig(vmConfig).build();
 		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
 				.createEnvironment(new File(FileUtils.getTempDirectory(),
 						"myVagrantPath" + System.currentTimeMillis()),
