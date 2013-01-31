@@ -5,10 +5,11 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.guigarage.vagrant.Vagrant;
+import com.guigarage.vagrant.VagrantEnvironmentFactory;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
 import com.guigarage.vagrant.configuration.VagrantPortForwarding;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
+import com.guigarage.vagrant.configuration.net.HostOnly;
 import com.guigarage.vagrant.model.VagrantEnvironment;
 import com.guigarage.vagrant.model.VagrantVm;
 import com.guigarage.vagrant.util.VagrantUtils;
@@ -23,16 +24,20 @@ public class VagrantTutorial2 {
 				.withBoxName("lucid64")
 				.withName("64BitVm")
 				.withBoxUrl(VagrantUtils.getInstance().getLucid64Url())
-				.withHostOnlyIp("192.168.50.4")
+				.withNetwork(HostOnly.withIpAddress("192.168.50.4"))
 				.withVagrantPortForwarding(
 						VagrantPortForwarding.builder().withGuestPort(7411)
 								.withHostPort(8080).build()).build();
 		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
 				.builder().withVagrantVmConfig(vmConfig1)
 				.withVagrantVmConfig(vmConfig2).build();
-		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
-				.createEnvironment(new File(FileUtils.getTempDirectory(),
-						"myVagrantPath" + System.currentTimeMillis()),
+		VagrantEnvironment vagrantEnvironmet = VagrantEnvironmentFactory
+				.builder()
+				.withDebug(true)
+				.build()
+				.createEnvironment(
+						new File(FileUtils.getTempDirectory(), "myVagrantPath"
+								+ System.currentTimeMillis()),
 						environmentConfig);
 		for (VagrantVm vm : vagrantEnvironmet.getAllVms()) {
 			vm.start();

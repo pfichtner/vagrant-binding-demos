@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.guigarage.vagrant.Vagrant;
+import com.guigarage.vagrant.VagrantEnvironmentFactory;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
 import com.guigarage.vagrant.model.VagrantEnvironment;
@@ -23,9 +23,13 @@ public class VagrantTutorial1 {
 				.withLucid32Box().build();
 		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
 				.builder().withVagrantVmConfig(vmConfig).build();
-		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
-				.createEnvironment(new File(FileUtils.getTempDirectory(),
-						"myVagrantPath" + System.currentTimeMillis()),
+		VagrantEnvironment vagrantEnvironmet = VagrantEnvironmentFactory
+				.builder()
+				.withDebug(true)
+				.build()
+				.createEnvironment(
+						new File(FileUtils.getTempDirectory(), "myVagrantPath"
+								+ System.currentTimeMillis()),
 						environmentConfig);
 		vagrantEnvironmet.up();
 		vagrantEnvironmet.destroy();

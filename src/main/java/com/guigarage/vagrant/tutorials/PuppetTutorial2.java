@@ -7,7 +7,7 @@ import java.util.Collections;
 import org.apache.commons.io.FileUtils;
 
 import com.guigarage.puppet.forge.PuppetForgeClient;
-import com.guigarage.vagrant.Vagrant;
+import com.guigarage.vagrant.VagrantEnvironmentFactory;
 import com.guigarage.vagrant.configuration.PuppetProvisionerConfig;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
 import com.guigarage.vagrant.configuration.VagrantFileTemplateConfigurationURL;
@@ -48,9 +48,13 @@ public class PuppetTutorial2 {
 				.build();
 		VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
 				.builder().withVagrantVmConfig(vmConfig).build();
-		VagrantEnvironment vagrantEnvironmet = new Vagrant(true)
-				.createEnvironment(new File(FileUtils.getTempDirectory(),
-						"myVagrantPath" + System.currentTimeMillis()),
+		VagrantEnvironment vagrantEnvironmet = VagrantEnvironmentFactory
+				.builder()
+				.withDebug(true)
+				.build()
+				.createEnvironment(
+						new File(FileUtils.getTempDirectory(), "myVagrantPath"
+								+ System.currentTimeMillis()),
 						environmentConfig, Collections.singleton(fileConfig),
 						Collections.singleton(folderConfig));
 		vagrantEnvironmet.up();

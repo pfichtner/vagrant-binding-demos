@@ -3,6 +3,7 @@ package com.guigarage.vagrant.dbhandler;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import com.guigarage.vagrant.configuration.VagrantConfiguration;
 import com.guigarage.vagrant.configuration.VagrantEnvironmentConfig;
 import com.guigarage.vagrant.configuration.VagrantFileTemplateConfigurationURL;
 import com.guigarage.vagrant.configuration.VagrantVmConfig;
+import com.guigarage.vagrant.configuration.net.HostOnly;
 import com.guigarage.vagrant.junit.VagrantTestRule;
 import com.guigarage.vagrant.util.VagrantUtils;
 
@@ -49,7 +51,9 @@ public class DbHandlerTest {
 					.withManifestFile("dbserver.pp").withDebug(true).build();
 
 			VagrantVmConfig vmConfig = VagrantVmConfig.builder()
-					.withName("mysqlvm").withHostOnlyIp(VM_IP).withLucid32Box()
+					.withLucid32Box().withName("mysqlvm")
+					.withNetwork(HostOnly.withIpAddress(VM_IP))
+					.withGuiMode(true)
 					.withPuppetProvisionerConfig(puppetConfig).build();
 
 			VagrantEnvironmentConfig environmentConfig = VagrantEnvironmentConfig
@@ -91,9 +95,12 @@ public class DbHandlerTest {
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void testJdbc() throws ClassNotFoundException, SQLException {
+	public void testJdbc() throws ClassNotFoundException, SQLException,
+			InterruptedException {
+		TimeUnit.SECONDS.sleep(1);
 		DbHandler dbHandler = new DbHandler(VM_IP, "testapp", "dbuser",
 				"dbuser");
 		dbHandler.connect();
